@@ -23,15 +23,12 @@ ActiveRecord::Schema.define(version: 20151126133624) do
   end
 
   create_table "doses", force: :cascade do |t|
+    t.text     "description"
     t.integer  "cocktail_id"
     t.integer  "ingredient_id"
-    t.text     "description"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
-
-  add_index "doses", ["cocktail_id"], name: "index_doses_on_cocktail_id", using: :btree
-  add_index "doses", ["ingredient_id"], name: "index_doses_on_ingredient_id", using: :btree
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +36,4 @@ ActiveRecord::Schema.define(version: 20151126133624) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "doses", "cocktails"
-  add_foreign_key "doses", "ingredients"
 end

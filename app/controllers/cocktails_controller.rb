@@ -1,4 +1,6 @@
 class CocktailsController < ApplicationController
+  before_action :set_cocktail, only: [:show, :edit, :update]
+
   def index
     @cocktails = Cocktail.all
   end
@@ -21,16 +23,13 @@ class CocktailsController < ApplicationController
   end
 
   def show
-    @cocktail = Cocktail.find(params[:id])
-    @ingredients = @cocktail.ingredients
+    @dose = Dose.find(params[:id])
   end
 
   def edit
-    @cocktail = Cocktail.find(params[:id])
   end
 
   def update
-    @cocktail = Cocktail.find(params[:id])
     respond_to do |format|
       if @cocktail.update(cocktail_params)
         format.html { redirect_to @cocktail, notice: 'Cocktail was successfully updated.' }
@@ -43,6 +42,10 @@ class CocktailsController < ApplicationController
   end
 
   private
+
+  def set_cocktail
+    @cocktail = Cocktail.find(params[:id])
+  end
 
   def cocktail_params
     params.require(:cocktail).permit(:name)
